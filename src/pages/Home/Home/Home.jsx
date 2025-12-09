@@ -3,6 +3,7 @@ import Banner from "../Banner/Banner";
 import Advartisements from "../Advartisements/Advartisements";
 import LatestTickets from "../LatestTickets/LatestTickets";
 import PopularRoutes from "../PopularRoutes/PopularRoutes";
+import ChooseUs from "../ChooseUs/ChooseUs";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Advartisements></Advartisements>
       <LatestTickets></LatestTickets>
       <PopularRoutes></PopularRoutes>
+      <ChooseUs></ChooseUs>
     </div>
   );
 };

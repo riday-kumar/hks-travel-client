@@ -17,7 +17,7 @@ const Footer = () => {
           {/* Brand & Description */}
           <div className="space-y-6">
             <h2 className="text-2xl font-bold flex items-center gap-2">
-              <span className="text-cyan-400">Jatri</span>
+              <span className="text-cyan-400">HKS Travel</span>
             </h2>
             <p className="text-sm text-gray-300 leading-relaxed max-w-xs">
               Simplifying travel across Bangladesh - book dependable transport
@@ -28,10 +28,10 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <HiMail className="w-5 h-5 text-cyan-400" />
                 <a
-                  href="mailto:info@jatri.co"
+                  href="mailto:info@hkstravel.com"
                   className="hover:text-cyan-400 transition"
                 >
-                  info@jatri.co
+                  info@hkstravel.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -134,7 +134,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-400">
-          <div>© 2025 Jatri.co All rights reserved.</div>
+          <div>© 2025 HKS Travel All rights reserved.</div>
 
           <div className="flex gap-6 underline underline-offset-4">
             <a href="#" className="hover:text-cyan-400 transition">

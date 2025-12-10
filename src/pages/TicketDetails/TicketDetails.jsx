@@ -11,7 +11,6 @@ import {
   FiWind,
 } from "react-icons/fi";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
-import Container from "../../components/Container";
 import Banner from "../Home/Banner/Banner";
 
 const TicketDetails = () => {

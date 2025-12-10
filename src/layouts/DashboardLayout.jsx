@@ -1,5 +1,17 @@
 import React from "react";
-import { Outlet } from "react-router";
+import {
+  FaHome,
+  FaMoneyCheckAlt,
+  FaRegUserCircle,
+  FaShoppingCart,
+  FaTicketAlt,
+} from "react-icons/fa";
+import { FaCodePullRequest } from "react-icons/fa6";
+import { GrTransaction } from "react-icons/gr";
+import { MdManageAccounts, MdNoteAdd } from "react-icons/md";
+import { RiAdvertisementFill } from "react-icons/ri";
+import { SiManageiq } from "react-icons/si";
+import { Link, Outlet } from "react-router";
 
 const DashboardLayout = () => {
   return (
@@ -44,54 +56,144 @@ const DashboardLayout = () => {
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
-            {/* List item */}
+            {/* Home item */}
             <li>
-              <button
+              <Link
+                to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
                 {/* Home icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </button>
-            </li>
+                <FaHome />
 
-            {/* List item */}
+                <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+            {/* User profile item */}
             <li>
-              <button
+              <Link
+                to="/dashboard/profile"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Settings"
+                data-tip="Profile"
               >
-                {/* Settings icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M20 7h-9"></path>
-                  <path d="M14 17H5"></path>
-                  <circle cx="17" cy="17" r="3"></circle>
-                  <circle cx="7" cy="7" r="3"></circle>
-                </svg>
-                <span className="is-drawer-close:hidden">Settings</span>
-              </button>
+                {/* User profile icon */}
+                <FaRegUserCircle />
+                <span className="is-drawer-close:hidden">Profile</span>
+              </Link>
+            </li>
+            {/* Transaction History item */}
+            <li>
+              <Link
+                to="/dashboard/transaction-history"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Transaction History"
+              >
+                {/* User profile icon */}
+                <GrTransaction />
+                <span className="is-drawer-close:hidden">
+                  Transaction History
+                </span>
+              </Link>
+            </li>
+            {/* Booked Ticket */}
+            <li>
+              <Link
+                to="/dashboard/booked-tickets"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Booked Ticket"
+              >
+                {/* User profile icon */}
+                <FaShoppingCart />
+                <span className="is-drawer-close:hidden">Booked Ticket</span>
+              </Link>
+            </li>
+            {/* Add Ticket */}
+            <li>
+              <Link
+                to="/dashboard/add-ticket"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Add Ticket"
+              >
+                {/* add ticket icon */}
+                <MdNoteAdd />
+                <span className="is-drawer-close:hidden">Add Ticket</span>
+              </Link>
+            </li>
+            {/* My Added Tickets */}
+            <li>
+              <Link
+                to="/dashboard/my-created-ticket"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Added Ticket"
+              >
+                {/* tickets icon */}
+                <FaTicketAlt />
+                <span className="is-drawer-close:hidden">My Added Ticket</span>
+              </Link>
+            </li>
+            {/* Requested Bookings */}
+            <li>
+              <Link
+                to="/dashboard/all-request"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="All Requested Bookings"
+              >
+                {/* tickets icon */}
+                <FaCodePullRequest />
+                <span className="is-drawer-close:hidden">
+                  All Requested Bookings
+                </span>
+              </Link>
+            </li>
+            {/* Revenue Overview  */}
+            <li>
+              <Link
+                to="/dashboard/revenue"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Revenue Overview"
+              >
+                {/* tickets icon */}
+                <FaMoneyCheckAlt />
+                <span className="is-drawer-close:hidden">Revenue Overview</span>
+              </Link>
+            </li>
+            {/* manage users */}
+            <li>
+              <Link
+                to="/dashboard/manage-users"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Manage Users"
+              >
+                {/* tickets icon */}
+                <MdManageAccounts />
+                <span className="is-drawer-close:hidden">Manage Users</span>
+              </Link>
+            </li>
+            {/* manage tickets */}
+            <li>
+              <Link
+                to="/dashboard/manage-ticket"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Manage Tickets"
+              >
+                {/* tickets icon */}
+                <SiManageiq />
+                <span className="is-drawer-close:hidden">Manage Tickets</span>
+              </Link>
+            </li>
+            {/* Advertise Tickets */}
+            <li>
+              <Link
+                to="/dashboard/advertise-tickets"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Advertise Tickets"
+              >
+                {/* tickets icon */}
+                <RiAdvertisementFill />
+                <span className="is-drawer-close:hidden">
+                  Advertise Tickets
+                </span>
+              </Link>
             </li>
           </ul>
         </div>

@@ -8,6 +8,13 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import UserProfile from "../pages/Dashboard/Profile/UserProfile";
 import BookedTickets from "../pages/Dashboard/BookedTickets/BookedTickets";
 import TransactionHistory from "../pages/Dashboard/Payment/TransactionHistory";
+import AddTicket from "../pages/Dashboard/AddTicket/AddTicket";
+import MyAddedTicket from "../pages/Dashboard/MyAddedTicket/MyAddedTicket";
+import AllRequestBooks from "../pages/Dashboard/AllRequestBookings/AllRequestBooks";
+import Revenue from "../pages/Dashboard/Revenue/Revenue";
+import ManageTicket from "../pages/Dashboard/ManageTicket/ManageTicket";
+import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
+import AdvertiseTicket from "../pages/Dashboard/AdvertiseTicket/AdvertiseTicket";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +50,34 @@ const router = createBrowserRouter([
       {
         path: "transaction-history",
         Component: TransactionHistory,
+      },
+      {
+        path: "add-ticket",
+        Component: AddTicket,
+      },
+      {
+        path: "my-created-ticket",
+        Component: MyAddedTicket,
+      },
+      {
+        path: "all-request",
+        Component: AllRequestBooks,
+      },
+      {
+        path: "revenue",
+        Component: Revenue,
+      },
+      {
+        path: "manage-ticket",
+        Component: ManageTicket,
+      },
+      {
+        path: "manage-users",
+        Component: ManageUsers,
+      },
+      {
+        path: "advertise-tickets",
+        Component: AdvertiseTicket,
       },
     ],
   },

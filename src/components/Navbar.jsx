@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "./Container";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const links = (
@@ -13,6 +13,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/dashboard/profile">Profile</NavLink>
+      </li>
+      <li>
+        <NavLink to="/register">Register</NavLink>
       </li>
     </>
   );
@@ -51,7 +54,9 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <Link to="/login" className="btn btn-success">
+            LogIn
+          </Link>
         </div>
       </div>
     </Container>

@@ -15,6 +15,8 @@ import Revenue from "../pages/Dashboard/Revenue/Revenue";
 import ManageTicket from "../pages/Dashboard/ManageTicket/ManageTicket";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 import AdvertiseTicket from "../pages/Dashboard/AdvertiseTicket/AdvertiseTicket";
+import Register from "../pages/Register/Register";
+import LogIn from "../pages/LogIn/LogIn";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/all-tickets",
         Component: AllTickets,
+      },
+      {
+        path: "/register",
+        Component: Register,
+      },
+      {
+        path: "/login",
+        Component: LogIn,
       },
     ],
   },

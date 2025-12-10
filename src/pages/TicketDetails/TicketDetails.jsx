@@ -12,18 +12,13 @@ import {
 } from "react-icons/fi";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 import Container from "../../components/Container";
+import Banner from "../Home/Banner/Banner";
 
 const TicketDetails = () => {
   const myModal = useRef(null);
   return (
     <div>
-      <div className="bg-[url(/src/assets/banner-bg.jpg)] bg-black/30 bg-blend-overlay bg-no-repeat bg-cover flex justify-center items-center min-h-96">
-        <Container>
-          <div className="text-white">
-            <h1 className="text-5xl font-bold">Dhaka to Barisal</h1>
-          </div>
-        </Container>
-      </div>
+      <Banner title="Dhaka to Barisal"></Banner>
       <div className="min-h-screen bg-gradient-to-b from-black via-green-950 to-black text-white py-8 px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           {/* Countdown + Booking Summary */}

@@ -8,7 +8,10 @@ import ChooseUs from "../ChooseUs/ChooseUs";
 const Home = () => {
   return (
     <div>
-      <Banner></Banner>
+      <Banner
+        title="Online Ticketing Made Easy!"
+        subTitle="Buy tickets online hassle-free"
+      ></Banner>
       <Advartisements></Advartisements>
       <LatestTickets></LatestTickets>
       <PopularRoutes></PopularRoutes>

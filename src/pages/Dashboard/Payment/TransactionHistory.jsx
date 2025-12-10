@@ -3,7 +3,6 @@ import React from "react";
 const TransactionHistory = () => {
   return (
     <div className="custom-pad">
-      <p>this is tracsaction history</p>
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
           <thead className="bg-gray-400 text-white">

@@ -12,3 +12,12 @@ body {
 .cursive {
   font-family: "Cedarville Cursive", cursive;
 }
+
+a.active {
+  color: black;
+  background-color: cyan;
+}
+
+.custom-pad {
+  padding: 30px 10px;
+}

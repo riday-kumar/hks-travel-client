@@ -11,15 +11,15 @@ import { GrTransaction } from "react-icons/gr";
 import { MdManageAccounts, MdNoteAdd } from "react-icons/md";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { SiManageiq } from "react-icons/si";
-import { Link, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open bg-black text-white">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-base-300">
+        <nav className="navbar w-full border-b-2 border-gray-100">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -53,12 +53,12 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-green-500 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
             {/* Home item */}
             <li>
-              <Link
+              <NavLink
                 to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
@@ -67,11 +67,11 @@ const DashboardLayout = () => {
                 <FaHome />
 
                 <span className="is-drawer-close:hidden">Homepage</span>
-              </Link>
+              </NavLink>
             </li>
             {/* User profile item */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/profile"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Profile"
@@ -79,11 +79,11 @@ const DashboardLayout = () => {
                 {/* User profile icon */}
                 <FaRegUserCircle />
                 <span className="is-drawer-close:hidden">Profile</span>
-              </Link>
+              </NavLink>
             </li>
             {/* Transaction History item */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/transaction-history"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Transaction History"
@@ -93,11 +93,11 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">
                   Transaction History
                 </span>
-              </Link>
+              </NavLink>
             </li>
             {/* Booked Ticket */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/booked-tickets"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Booked Ticket"
@@ -105,11 +105,11 @@ const DashboardLayout = () => {
                 {/* User profile icon */}
                 <FaShoppingCart />
                 <span className="is-drawer-close:hidden">Booked Ticket</span>
-              </Link>
+              </NavLink>
             </li>
             {/* Add Ticket */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/add-ticket"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Add Ticket"
@@ -117,11 +117,11 @@ const DashboardLayout = () => {
                 {/* add ticket icon */}
                 <MdNoteAdd />
                 <span className="is-drawer-close:hidden">Add Ticket</span>
-              </Link>
+              </NavLink>
             </li>
             {/* My Added Tickets */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/my-created-ticket"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="My Added Ticket"
@@ -129,11 +129,11 @@ const DashboardLayout = () => {
                 {/* tickets icon */}
                 <FaTicketAlt />
                 <span className="is-drawer-close:hidden">My Added Ticket</span>
-              </Link>
+              </NavLink>
             </li>
             {/* Requested Bookings */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/all-request"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="All Requested Bookings"
@@ -143,11 +143,11 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">
                   All Requested Bookings
                 </span>
-              </Link>
+              </NavLink>
             </li>
             {/* Revenue Overview  */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/revenue"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Revenue Overview"
@@ -155,11 +155,11 @@ const DashboardLayout = () => {
                 {/* tickets icon */}
                 <FaMoneyCheckAlt />
                 <span className="is-drawer-close:hidden">Revenue Overview</span>
-              </Link>
+              </NavLink>
             </li>
             {/* manage users */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/manage-users"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Manage Users"
@@ -167,11 +167,11 @@ const DashboardLayout = () => {
                 {/* tickets icon */}
                 <MdManageAccounts />
                 <span className="is-drawer-close:hidden">Manage Users</span>
-              </Link>
+              </NavLink>
             </li>
             {/* manage tickets */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/manage-ticket"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Manage Tickets"
@@ -179,11 +179,11 @@ const DashboardLayout = () => {
                 {/* tickets icon */}
                 <SiManageiq />
                 <span className="is-drawer-close:hidden">Manage Tickets</span>
-              </Link>
+              </NavLink>
             </li>
             {/* Advertise Tickets */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/advertise-tickets"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Advertise Tickets"
@@ -193,7 +193,7 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">
                   Advertise Tickets
                 </span>
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

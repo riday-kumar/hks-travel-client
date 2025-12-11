@@ -2,32 +2,39 @@ import React from "react";
 
 import authImage from "../../assets/auth.webp";
 import { toast } from "react-toastify";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import SocialLogIn from "../../components/SocialLogIn";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const LogIn = () => {
+  const { signInUser, loading } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   // sign using email, password
-  const handleSignIn = (e) => {
-    e.preventDefault();
+  const handleSignIn = (data) => {
+    const email = data.email;
+    const password = data.password;
 
-    const email = e.target.email.value;
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const password = e.target.password.value;
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-
-    if (!passwordPattern.test(password)) {
-      toast.error(
-        "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long."
-      );
-      return;
-    }
-
-    if (!emailPattern.test(email)) {
-      toast.error(
-        "Please enter a valid email address (example: user@example.com)."
-      );
-      return;
-    }
+    signInUser(email, password)
+      .then((res) => {
+        toast.success("LogIn SuccessFul");
+        navigate(location?.state || "/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
@@ -39,25 +46,54 @@ const LogIn = () => {
       <div className="">
         {/* register */}
         <div className="w-11/12 rounded-lg mx-auto my-20 p-10 bg-green-300/50 backdrop-blur-lg text-black">
-          <form onSubmit={handleSignIn}>
+          <form onSubmit={handleSubmit(handleSignIn)}>
             <p className="text-center text-3xl font-bold">Sign in</p>
             <fieldset className="fieldset *:w-full text-[18px] space-y-2">
+              {/* email */}
               <label className="label">Email</label>
               <input
                 type="email"
-                name="email"
+                {...register("email", {
+                  required: true,
+                  pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                })}
                 className="input"
                 placeholder="Email"
-                required
               />
+              {errors.email?.type === "required" && (
+                <p role="alert" className="text-red-500">
+                  Email Should Be Given
+                </p>
+              )}
+              {errors.email?.type === "pattern" && <p>Enter a valid email</p>}
+
+              {/* password */}
               <label className="label">Password</label>
               <input
                 type="password"
-                name="password"
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                })}
                 className="input"
                 placeholder="Password"
-                required
               />
+              {errors.password?.type === "required" && (
+                <p className="text-red-600">Password is Required</p>
+              )}
+
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-600">
+                  Password must be 6 characters or longer
+                </p>
+              )}
+              {errors.password?.type === "pattern" && (
+                <p role="error" className="text-red-500">
+                  Password must be at least 6 characters long and include both
+                  uppercase and lowercase letters.
+                </p>
+              )}
               <p className="cursor-pointer font-bold text-green-600">
                 Forgot Password?
               </p>
@@ -71,14 +107,7 @@ const LogIn = () => {
             <span className="roboto font-bold text-green-600">Or</span>
             <div className="m-0 p-0 h-px w-10  bg-base-200"></div>
           </div>
-          <button className="btn btn-success text-white font-bold w-full hover:text-white">
-            <img
-              className="h-5 w-5"
-              src="https://img.icons8.com/?size=100&id=V5cGWnc9R4xj&format=png&color=000000"
-              alt=""
-            />{" "}
-            Sign In With Google
-          </button>
+          <SocialLogIn></SocialLogIn>
           <p className="capitalize text-center mt-3 font-medium text-green-600">
             Don't have account ?{" "}
             <Link to="/register" className="font-bold">

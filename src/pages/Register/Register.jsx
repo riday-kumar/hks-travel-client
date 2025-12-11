@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import SocialLogIn from "../../components/SocialLogIn";
 const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -153,14 +154,7 @@ const Register = () => {
             <span className="roboto text-success font-bold">Or</span>
             <div className="m-0 p-0 h-px w-10  bg-base-200"></div>
           </div>
-          <button className="btn  btn-success text-white font-bold w-full hover:text-white">
-            <img
-              className="h-5 w-5"
-              src="https://img.icons8.com/?size=100&id=V5cGWnc9R4xj&format=png&color=000000"
-              alt=""
-            />{" "}
-            Sign In With Google
-          </button>
+          <SocialLogIn></SocialLogIn>
           {/* sign in page */}
           <p className="capitalize text-center mt-3 font-medium text-green-600">
             Already have an account ?{" "}

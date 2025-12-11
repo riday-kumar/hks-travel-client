@@ -12,12 +12,35 @@ import {
 } from "react-icons/fi";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 import Banner from "../Home/Banner/Banner";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
+import Countdown from "../../components/Countdown";
 
 const TicketDetails = () => {
   const myModal = useRef(null);
+
+  const { currentUser } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const paramsId = useParams();
+  const ticketId = paramsId.id;
+
+  // fetch user details using tanstack query
+  const { data: ticketDetails = { busPerks: [] } } = useQuery({
+    queryKey: ["ticketDetail"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/ticket/${ticketId}`);
+      return res.data;
+    },
+  });
+
+  console.log(ticketDetails);
+
   return (
     <div>
-      <Banner title="Dhaka to Barisal"></Banner>
+      <Banner title={ticketDetails.ticketName}></Banner>
       <div className="min-h-screen bg-gradient-to-b from-black via-green-950 to-black text-white py-8 px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           {/* Countdown + Booking Summary */}
@@ -30,18 +53,7 @@ const TicketDetails = () => {
                   <FiClock className="w-5 h-5" />
                   Time until departure
                 </div>
-                <div className="grid grid-cols-4 gap-4">
-                  {["02", "04", "15", "00"].map((value, i) => (
-                    <div key={i} className="text-center">
-                      <div className="bg-gradient-to-b from-green-600 to-emerald-700 rounded-2xl py-6 text-4xl font-bold shadow-lg">
-                        {value}
-                      </div>
-                      <p className="text-gray-400 text-xs mt-2">
-                        {["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <Countdown departure={ticketDetails.busDeparture} />
               </div>
               {/* Trip Itinerary */}
               <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl p-8 border border-gray-800">
@@ -57,22 +69,15 @@ const TicketDetails = () => {
                     </div>
                     <div className="flex-1">
                       <h4 className="text-xl font-bold">
-                        Port Authority Bus Terminal
+                        {ticketDetails.busFrom}
                       </h4>
-                      <p className="text-gray-400 text-sm">
-                        625 8th Ave, New York, NY 10018
-                      </p>
-                      <div className="mt-3 flex items-center gap-4">
-                        <span className="text-2xl font-bold">08:00 AM</span>
-                        <span className="text-green-400 text-sm">Oct 24</span>
-                      </div>
                     </div>
                   </div>
 
                   {/* Duration Badge */}
                   <div className="flex justify-center -mt-8 mb-8">
                     <div className="bg-gray-800/80 px-6 py-3 rounded-full text-sm border border-gray-700">
-                      4h 30m non-stop
+                      to
                     </div>
                   </div>
 
@@ -83,15 +88,8 @@ const TicketDetails = () => {
                     </div>
                     <div className="flex-1">
                       <h4 className="text-xl font-bold">
-                        South Station Bus Terminal
+                        {ticketDetails.busTo}
                       </h4>
-                      <p className="text-gray-400 text-sm">
-                        700 Atlantic Ave, Boston, MA 02110
-                      </p>
-                      <div className="mt-3 flex items-center gap-4">
-                        <span className="text-2xl font-bold">12:30 PM</span>
-                        <span className="text-green-400 text-sm">Oct 24</span>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -102,8 +100,12 @@ const TicketDetails = () => {
             {/* Booking Summary */}
             <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl p-6 border border-green-700/50 shadow-xl">
               <div className="font-bold">
-                <p className="text-yellow-500">Total Ticket : 20</p>
-                <p className="">Ticket Remaining : 5</p>
+                <p className="text-yellow-500">
+                  Total Ticket : {ticketDetails.ticketQuantity}
+                </p>
+                <p className="">
+                  Ticket Remaining : {ticketDetails.remainingTicket}
+                </p>
               </div>
               <div className="border-t border-gray-700 my-5"></div>
               <h3 className="text-xl font-bold mb-5 flex items-center gap-2">
@@ -113,11 +115,11 @@ const TicketDetails = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-400">Ticket (1 Adult)</span>
-                  <span>$45.00</span>
+                  <span>{ticketDetails.ticketPrice}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Taxes & Fees</span>
-                  <span>$5.00</span>
+                  <span>-</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Seat Selection</span>
@@ -127,7 +129,9 @@ const TicketDetails = () => {
               <div className="border-t border-gray-700 my-5"></div>
               <div className="flex justify-between text-xl font-bold">
                 <span>Ticket Price</span>
-                <span className="text-green-400">$50.00</span>
+                <span className="text-green-400">
+                  {ticketDetails.ticketPrice}
+                </span>
               </div>
 
               <button
@@ -163,27 +167,19 @@ const TicketDetails = () => {
 
           {/* Onboard Amenities */}
           <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl p-8 border border-gray-800">
-            <h3 className="text-2xl font-bold mb-8">Onboard Amenities</h3>
+            {" "}
+            <h3 className="text-2xl font-bold mb-8">Other Benefits</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { icon: <FiWifi />, label: "Free Wi-Fi" },
-                { icon: <FiPower />, label: "Power Outlets" },
-                {
-                  icon: <MdAirlineSeatReclineExtra />,
-                  label: "Reclining Seats",
-                },
-                { icon: <FiWind />, label: "Air Conditioning" },
-              ].map((amenity, i) => (
+              {ticketDetails?.busPerks.map((amenity, i) => (
                 <div
                   key={i}
                   className="flex flex-col items-center text-center group"
                 >
                   <div className="bg-gray-800/70 p-6 rounded-3xl mb-3 group-hover:bg-green-900/50 transition-all">
-                    <div className="text-4xl text-green-400 group-hover:scale-110 transition-transform">
-                      {amenity.icon}
+                    <div className="text-2xl text-green-400 group-hover:scale-110 transition-transform">
+                      {amenity}
                     </div>
                   </div>
-                  <p className="text-sm text-gray-300">{amenity.label}</p>
                 </div>
               ))}
             </div>
@@ -212,6 +208,7 @@ const TicketDetails = () => {
                 name="name"
                 className="input input-bordered w-full"
                 placeholder="Enter your name"
+                defaultValue={currentUser?.displayName}
                 required
               />
             </div>
@@ -224,6 +221,7 @@ const TicketDetails = () => {
                 name="email"
                 className="input input-bordered w-full"
                 placeholder="Enter email"
+                defaultValue={currentUser?.email}
                 required
               />
             </div>

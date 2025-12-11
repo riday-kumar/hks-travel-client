@@ -1,17 +1,75 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const AddTicket = () => {
+  const axiosSecure = useAxiosSecure();
+  const { currentUser } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
-    alert("Ticket added successfully!");
+
+    const ticketName = data.title;
+    const busDeparture = data.departure;
+    const busFrom = data.from;
+    const busTo = data.to;
+    const transportType = data.transportType;
+    const ticketPrice = Number(data.price);
+    const ticketImage = data.image[0];
+    const busPerks = data.perks;
+    const ticketQuantity = Number(data.quantity);
+    const remainingTicket = Number(data.quantity);
+    const ticketCreatedBy = currentUser.email;
+
+    // store ticket image in the imagebb server
+
+    const formData = new FormData();
+    formData.append("image", ticketImage);
+
+    const image_Api_Url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_img_host
+    }`;
+
+    // image will save in the imagebb server
+    axios.post(image_Api_Url, formData).then((res) => {
+      // create ticket in the database
+      const ticketInfo = {
+        ticketName,
+        busDeparture,
+        busFrom,
+        busTo,
+        transportType,
+        ticketPrice,
+        ticketImage: res.data.data.url,
+        busPerks,
+        ticketQuantity,
+        remainingTicket,
+        ticketCreatedBy,
+      };
+
+      axiosSecure.post("/add-ticket", ticketInfo).then((res) => {
+        if (res.data.insertedId) {
+          toast.success("ticket created successfully");
+        }
+      });
+    });
   };
+
+  // reset form after submit
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   const perksList = ["AC", "Breakfast", "Water", "Charging Port", "Wifi"];
 

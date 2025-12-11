@@ -40,6 +40,7 @@ const LogIn = () => {
         {/* register */}
         <div className="w-11/12 rounded-lg mx-auto my-20 p-10 bg-green-300/50 backdrop-blur-lg text-black">
           <form onSubmit={handleSignIn}>
+            <p className="text-center text-3xl font-bold">Sign in</p>
             <fieldset className="fieldset *:w-full text-[18px] space-y-2">
               <label className="label">Email</label>
               <input

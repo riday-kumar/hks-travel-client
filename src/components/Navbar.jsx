@@ -1,8 +1,12 @@
 import React from "react";
 import Container from "./Container";
 import { Link, NavLink } from "react-router";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { currentUser, logOut } = useAuth();
+
   const links = (
     <>
       <li>
@@ -14,11 +18,20 @@ const Navbar = () => {
       <li>
         <NavLink to="/dashboard/profile">Profile</NavLink>
       </li>
-      <li>
-        <NavLink to="/register">Register</NavLink>
-      </li>
+      {!currentUser && (
+        <li>
+          <NavLink to="/register">Register</NavLink>
+        </li>
+      )}
     </>
   );
+
+  const handleLogOut = () => {
+    logOut()
+      .then((res) => toast.success("Log Out Successfully"))
+      .catch((err) => console.log(err.message));
+  };
+
   return (
     <Container>
       <div className="navbar bg-base-100">
@@ -54,9 +67,15 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <Link to="/login" className="btn btn-success">
-            LogIn
-          </Link>
+          {currentUser ? (
+            <button onClick={handleLogOut} className="btn btn-warning">
+              LogOut
+            </button>
+          ) : (
+            <Link to="/login" className="btn btn-success">
+              LogIn
+            </Link>
+          )}
         </div>
       </div>
     </Container>

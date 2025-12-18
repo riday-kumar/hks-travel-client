@@ -1,10 +1,11 @@
 import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 const AllRequestBooks = () => {
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
 
   // fetch user details using tanstack query
   const { data: allBookings = [] } = useQuery({
@@ -23,6 +24,18 @@ const AllRequestBooks = () => {
       console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Booking Accepted");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const ticketReject = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/booking-reject/${id}`);
+      queryClient.invalidateQueries(["allBookings"]);
+      console.log(res.data);
+      if (res.data.acknowledged) {
+        toast.success("Booking Rejected");
       }
     } catch (error) {
       console.error(error);
@@ -84,7 +97,12 @@ const AllRequestBooks = () => {
                   >
                     Accept
                   </button>
-                  <button className="btn btn-sm btn-warning">Reject</button>
+                  <button
+                    onClick={() => ticketReject(booking._id)}
+                    className="btn btn-sm btn-warning"
+                  >
+                    Reject
+                  </button>
                 </td>
               </tr>
             ))}

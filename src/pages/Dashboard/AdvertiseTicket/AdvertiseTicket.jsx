@@ -16,18 +16,18 @@ const AdvertiseTicket = () => {
     },
   });
 
-  console.log(allTheTickets);
+  // console.log(allTheTickets);
 
   const advertiseAccept = async (id) => {
     try {
       const res = await axiosSecure.patch(`/advertise-accept/${id}`);
       queryClient.invalidateQueries(["allTheTickets"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Advertisement Accepted");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -35,12 +35,12 @@ const AdvertiseTicket = () => {
     try {
       const res = await axiosSecure.patch(`/advertise-reject/${id}`);
       queryClient.invalidateQueries(["allTheTickets"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Booking Rejected");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

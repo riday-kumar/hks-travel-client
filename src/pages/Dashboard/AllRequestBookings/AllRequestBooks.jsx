@@ -16,29 +16,29 @@ const AllRequestBooks = () => {
     },
   });
 
-  console.log(allBookings);
+  // console.log(allBookings);
 
   const ticketAccept = async (id) => {
     try {
       const res = await axiosSecure.patch(`/booking-accept/${id}`);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Booking Accepted");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
   const ticketReject = async (id) => {
     try {
       const res = await axiosSecure.patch(`/booking-reject/${id}`);
       queryClient.invalidateQueries(["allBookings"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Booking Rejected");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

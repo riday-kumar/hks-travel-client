@@ -20,12 +20,12 @@ const ManageUsers = () => {
     try {
       const res = await axiosSecure.patch(`/make-admin/${id}`);
       queryClient.invalidateQueries(["allUsers"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("New Admin Added");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -33,12 +33,12 @@ const ManageUsers = () => {
     try {
       const res = await axiosSecure.patch(`/make-vendor/${id}`);
       queryClient.invalidateQueries(["allUsers"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("New Vendor Added");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

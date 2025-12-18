@@ -20,7 +20,7 @@ const Register = () => {
   } = useForm();
 
   const handleRegisterForm = (data) => {
-    console.log(data);
+    // console.log(data);
 
     const profileName = data.name;
     const profileImg = data.photo[0];
@@ -45,7 +45,7 @@ const Register = () => {
         };
         axiosSecure.post("/users", userInfo).then((res) => {
           if (res.data.insertedId) {
-            console.log("user created in the data");
+            // console.log("user created in the data");
           }
         });
 
@@ -57,12 +57,12 @@ const Register = () => {
 
         updateUserProfile(userProfile)
           .then(() => {
-            console.log("user profile update done");
+            // console.log("user profile update done");
             toast.success("User Created Successfully");
             navigate(location.state || "/");
           })
           .catch((err) => {
-            console.log(err.message);
+            // console.log(err.message);
           });
       });
     });

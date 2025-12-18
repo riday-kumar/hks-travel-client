@@ -19,7 +19,7 @@ const BookedTickets = () => {
     },
   });
 
-  console.log(myBookings);
+  // console.log(myBookings);
 
   return (
     <div className="custom-pad">

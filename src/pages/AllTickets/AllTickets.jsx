@@ -20,7 +20,7 @@ const AllTickets = () => {
     },
   });
 
-  console.log(tickets);
+  // console.log(tickets);
 
   return (
     <div>

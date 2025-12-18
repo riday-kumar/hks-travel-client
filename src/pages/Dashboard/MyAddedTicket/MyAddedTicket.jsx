@@ -8,7 +8,7 @@ const MyAddedTicket = () => {
   const { currentUser } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   // fetch user details using tanstack query
   const { data: vendorTickets = [] } = useQuery({
@@ -19,7 +19,7 @@ const MyAddedTicket = () => {
     },
   });
 
-  console.log(vendorTickets);
+  // console.log(vendorTickets);
   return (
     <div className="custom-pad">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

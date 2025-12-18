@@ -7,7 +7,7 @@ const UserProfile = () => {
   const { currentUser } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   // fetch user details using tanstack query
   const { data: user = {} } = useQuery({
@@ -18,7 +18,7 @@ const UserProfile = () => {
     },
   });
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="backdrop-blur-lg bg-black text-white flex justify-center items-center min-h-screen">

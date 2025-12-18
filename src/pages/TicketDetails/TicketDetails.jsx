@@ -36,7 +36,7 @@ const TicketDetails = () => {
     },
   });
 
-  console.log(ticketDetails);
+  // console.log(ticketDetails);
 
   // handle ticket booking
   const handleBookTicket = async () => {};
@@ -44,7 +44,7 @@ const TicketDetails = () => {
   const departureTime = new Date(ticketDetails.busDeparture).getTime();
   const now = new Date().getTime();
   const isExpired = departureTime <= now;
-  console.log(isExpired);
+  // console.log(isExpired);
 
   return (
     <div>
@@ -208,7 +208,7 @@ const TicketDetails = () => {
               e.preventDefault();
               const formData = new FormData(e.target);
               const data = Object.fromEntries(formData.entries());
-              console.log("Form Submitted:", data);
+              // console.log("Form Submitted:", data);
 
               const bookingInfo = {
                 userName: data.name,
@@ -225,7 +225,7 @@ const TicketDetails = () => {
               };
 
               axiosSecure.post("/add-booking", bookingInfo).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 myModal.current.close();
               });
             }}

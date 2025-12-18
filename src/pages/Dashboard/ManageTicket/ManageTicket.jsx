@@ -16,30 +16,30 @@ const ManageTicket = () => {
     },
   });
 
-  console.log(allTheTickets);
+  // console.log(allTheTickets);
 
   const ticketAccept = async (id) => {
     try {
       const res = await axiosSecure.patch(`/ticket-accept/${id}`);
       queryClient.invalidateQueries(["allTheTickets"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Ticket Accepted");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
   const ticketReject = async (id) => {
     try {
       const res = await axiosSecure.patch(`/ticket-reject/${id}`);
       queryClient.invalidateQueries(["allTheTickets"]);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.acknowledged) {
         toast.success("Booking Rejected");
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

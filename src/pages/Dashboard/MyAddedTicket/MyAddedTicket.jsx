@@ -39,7 +39,7 @@ const MyAddedTicket = () => {
 
             {/* Content */}
             <div className="p-2">
-              <h3 className="font-semibold text-lg mt-2">
+              <h3 className="font-semibold text-blue-600 text-lg mt-2">
                 {ticket.ticketName}
               </h3>
 

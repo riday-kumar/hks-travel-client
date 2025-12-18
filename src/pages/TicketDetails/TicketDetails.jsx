@@ -38,6 +38,14 @@ const TicketDetails = () => {
 
   console.log(ticketDetails);
 
+  // handle ticket booking
+  const handleBookTicket = async () => {};
+
+  const departureTime = new Date(ticketDetails.busDeparture).getTime();
+  const now = new Date().getTime();
+  const isExpired = departureTime <= now;
+  console.log(isExpired);
+
   return (
     <div>
       <Banner title={ticketDetails.ticketName}></Banner>
@@ -134,13 +142,17 @@ const TicketDetails = () => {
                 </span>
               </div>
 
-              <button
-                onClick={() => myModal.current.showModal()}
-                className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 rounded-full flex items-center justify-center gap-3 shadow-lg transition-all"
-              >
-                Book Now
-                <FiArrowRight className="w-5 h-5" />
-              </button>
+              {isExpired ? (
+                <p className="text-red-500 mt-3">Ticket Isn't Available</p>
+              ) : (
+                <button
+                  onClick={() => myModal.current.showModal()}
+                  className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 rounded-full flex items-center justify-center gap-3 shadow-lg transition-all"
+                >
+                  Book Now
+                  <FiArrowRight className="w-5 h-5" />
+                </button>
+              )}
 
               <p className="text-xs text-gray-500 text-center mt-4">
                 By booking, you agree to our{" "}
@@ -197,7 +209,25 @@ const TicketDetails = () => {
               const formData = new FormData(e.target);
               const data = Object.fromEntries(formData.entries());
               console.log("Form Submitted:", data);
-              // you can process data here
+
+              const bookingInfo = {
+                userName: data.name,
+                userEmail: data.email,
+                bookedQuantity: Number(data.tickets),
+                ticketId: ticketId,
+                ticketName: ticketDetails.ticketName,
+                ticketPrice: ticketDetails.ticketPrice,
+                busFrom: ticketDetails.busFrom,
+                busTo: ticketDetails.busTo,
+                busDeparture: ticketDetails.busDeparture,
+                status: "pending",
+                createdAt: new Date(),
+              };
+
+              axiosSecure.post("/add-booking", bookingInfo).then((res) => {
+                console.log(res.data);
+                myModal.current.close();
+              });
             }}
           >
             {/* Name */}

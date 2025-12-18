@@ -1,6 +1,34 @@
 import React from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const AllRequestBooks = () => {
+  const axiosSecure = useAxiosSecure();
+
+  // fetch user details using tanstack query
+  const { data: allBookings = [] } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/all-bookings`);
+      return res.data;
+    },
+  });
+
+  console.log(allBookings);
+
+  const ticketAccept = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/booking-accept/${id}`);
+      console.log(res.data);
+      if (res.data.acknowledged) {
+        toast.success("Booking Accepted");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="custom-pad">
       <div className="overflow-x-auto">
@@ -19,6 +47,7 @@ const AllRequestBooks = () => {
               <th className="py-3 px-4 text-center font-semibold">
                 Total Price
               </th>
+              <th className="py-3 px-4 text-center font-semibold">Status</th>
               <th className="py-3 px-4 text-center font-semibold">Action</th>
             </tr>
           </thead>
@@ -26,39 +55,39 @@ const AllRequestBooks = () => {
           <tbody className="divide-y divide-gray-200 bg-green-50 text-black">
             {/* Example Row */}
 
-            <tr className="hover:bg-white transition-all">
-              <td className="py-3 px-4">MSD Mahi</td>
-              <td className="py-3 px-4 font-medium ">Dhaka to NG</td>
-              <td className="py-3 px-4 text-center ">50</td>
-              <td className="py-3 px-4 text-center ">2</td>
-              <td className="py-3 px-4 text-center ">100</td>
-              <td className="flex flex-wrap gap-2 py-3 px-4 text-center">
-                <button className="btn btn-sm btn-success">Accept</button>
-                <button className="btn btn-sm btn-warning">Reject</button>
-              </td>
-            </tr>
-            <tr className="hover:bg-white transition-all">
-              <td className="py-3 px-4">MSD Mahi</td>
-              <td className="py-3 px-4 font-medium ">Dhaka to NG</td>
-              <td className="py-3 px-4 text-center ">50</td>
-              <td className="py-3 px-4 text-center ">2</td>
-              <td className="py-3 px-4 text-center ">100</td>
-              <td className="flex flex-wrap gap-2 py-3 px-4 text-center">
-                <button className="btn btn-sm btn-success">Accept</button>
-                <button className="btn btn-sm btn-warning">Reject</button>
-              </td>
-            </tr>
-            <tr className="hover:bg-white transition-all">
-              <td className="py-3 px-4">MSD Mahi</td>
-              <td className="py-3 px-4 font-medium ">Dhaka to NG</td>
-              <td className="py-3 px-4 text-center ">50</td>
-              <td className="py-3 px-4 text-center ">2</td>
-              <td className="py-3 px-4 text-center ">100</td>
-              <td className="flex flex-wrap gap-2 py-3 px-4 text-center">
-                <button className="btn btn-sm btn-success">Accept</button>
-                <button className="btn btn-sm btn-warning">Reject</button>
-              </td>
-            </tr>
+            {allBookings.map((booking, index) => (
+              <tr key={index} className="hover:bg-white transition-all">
+                <td className="py-3 px-4">{booking.userName}</td>
+                <td className="py-3 px-4 font-medium ">{booking.ticketName}</td>
+                <td className="py-3 px-4 text-center ">
+                  {booking.ticketPrice}
+                </td>
+                <td className="py-3 px-4 text-center ">
+                  {booking.bookedQuantity}
+                </td>
+                <td className="py-3 px-4 text-center ">
+                  {booking.ticketPrice * booking.bookedQuantity}
+                </td>
+                <td className="py-3 px-4 text-center ">
+                  {booking.status === "success" ? (
+                    <p className="text-green-600">Success</p>
+                  ) : booking.status === "reject" ? (
+                    <p className="text-red-600">Rejected</p>
+                  ) : (
+                    <p>Pending</p>
+                  )}
+                </td>
+                <td className="flex flex-wrap gap-2 py-3 px-4 text-center">
+                  <button
+                    onClick={() => ticketAccept(booking._id)}
+                    className="btn btn-sm btn-success"
+                  >
+                    Accept
+                  </button>
+                  <button className="btn btn-sm btn-warning">Reject</button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

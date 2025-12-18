@@ -30,6 +30,7 @@ const AdvertiseTicket = () => {
       console.error(error);
     }
   };
+
   const advertiseReject = async (id) => {
     try {
       const res = await axiosSecure.patch(`/advertise-reject/${id}`);
